@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "source_raw_dataset",
+						"referenceName": "csv_source_dataset",
 						"type": "DatasetReference"
 					},
 					"timeout": "0.00:05:30",
@@ -37,17 +37,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "source_raw_dataset",
+						"referenceName": "csv_source_dataset",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"columnCount",
 						"exists",
-						"itemName",
-						"itemType",
-						"lastModified",
 						"size",
-						"structure"
+						"lastModified",
+						"itemName"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
@@ -136,50 +134,8 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
-								},
-								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "source_csv_dataset",
-									"type": "DatasetReference"
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "bronze_raw",
-									"type": "DatasetReference"
-								}
-							]
+								"enableStaging": false
+							}
 						},
 						{
 							"name": "send_copy_success_msg",
@@ -249,25 +205,13 @@
 									}
 								},
 								"enableStaging": false
-							},
-							"inputs": [
-								{
-									"referenceName": "source_json_dataset",
-									"type": "DatasetReference"
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "Json1",
-									"type": "DatasetReference"
-								}
-							]
+							}
 						}
 					]
 				}
 			},
 			{
-				"name": "source_not_present",
+				"name": "csv_not_present",
 				"type": "Fail",
 				"dependsOn": [
 					{
@@ -286,6 +230,8 @@
 			{
 				"name": "send_source_not_found_msg",
 				"type": "WebActivity",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "check_if_file_exists",
@@ -318,7 +264,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "source_json_dataset",
+						"referenceName": "json_source_dataset",
 						"type": "DatasetReference"
 					},
 					"timeout": "0.00:05:30",
@@ -346,14 +292,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "source_json_dataset",
+						"referenceName": "json_source_dataset",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"exists",
 						"itemName",
-						"itemType",
-						"lastModified",
 						"size"
 					],
 					"storeSettings": {
@@ -369,6 +313,8 @@
 			{
 				"name": "send_source_not_found_msg_copy1",
 				"type": "WebActivity",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "check_if_json_exists",
@@ -392,6 +338,23 @@
 						"value": "@json(concat('{',\n  '\"subject\":\"ADF Pipeline Failed! <br>\",',\n  '\"body\":\"Pipeline: ', pipeline().Pipeline, ' Failed as Source is not present\"',\n'}'))\n",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "json_not_present",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "check_if_json_exists",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "Source not present",
+					"errorCode": "400"
 				}
 			}
 		],

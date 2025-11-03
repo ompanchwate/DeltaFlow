@@ -1,0 +1,19 @@
+{
+	"name": "csv_sink_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "bronze_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
