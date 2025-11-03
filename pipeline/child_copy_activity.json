@@ -38,12 +38,14 @@
 									}
 								},
 								"sink": {
-									"type": "ParquetSink",
+									"type": "DelimitedTextSink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "ParquetWriteSettings"
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
 									}
 								},
 								"enableStaging": false,
@@ -59,19 +61,37 @@
 							"inputs": [
 								{
 									"referenceName": "csv_source_dataset",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@item().container",
+											"type": "Expression"
+										},
+										"file": {
+											"value": "@item().fileName",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "csv_sink_dataset",
-									"type": "DatasetReference"
+									"referenceName": "csv_source_dataset",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@item().targetPath",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						},
 						{
 							"name": "send_copy_success_msg",
 							"type": "WebActivity",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Source_To_Bronze",

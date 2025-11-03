@@ -124,6 +124,8 @@
 						{
 							"name": "Source_To_Bronze",
 							"type": "Copy",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.07:00:00",
@@ -140,6 +142,8 @@
 						{
 							"name": "send_copy_success_msg",
 							"type": "WebActivity",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Source_To_Bronze",
@@ -174,6 +178,8 @@
 						{
 							"name": "Source_To_Bronze_copy1",
 							"type": "Copy",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.07:00:00",
@@ -195,15 +201,6 @@
 										"type": "JsonReadSettings"
 									}
 								},
-								"sink": {
-									"type": "JsonSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "JsonWriteSettings"
-									}
-								},
 								"enableStaging": false
 							}
 						},
@@ -222,7 +219,10 @@
 								},
 								"waitOnCompletion": false,
 								"parameters": {
-									"datasets": "[\n  {\n    \"datasetName\": \"CSV_Dataset\",\n    \"datasetType\": \"csv\",\n    \"filePath\": \"input/csv/file1.csv\",\n    \"targetPath\": \"output/csv/file1.csv\",\n    \"expectedColumnCount\": 5\n  },\n  {\n    \"datasetName\": \"JSON_Dataset\",\n    \"datasetType\": \"json\",\n    \"filePath\": \"input/json/file2.json\",\n    \"targetPath\": \"output/json/file2.json\",\n    \"expectedSizeKB\": 120\n  }\n]\n"
+									"datasets": {
+										"value": "[\n  {\n    \"datasetName\": \"csv_source_dataset\",\n    \"datasetType\": \"csv\",\n    \"container\": \"source\",\n    \"fileName\": \"data1.csv\",\n    \"targetPath\": \"raw\"\n  },\n  {\n    \"datasetName\": \"json_source_dataset\",\n    \"datasetType\": \"json\",\n    \"container\": \"source\",\n    \"fileName\": \"data2.json\",\n    \"targetPath\": \"raw\"\n  }\n]\n",
+										"type": "Expression"
+									}
 								}
 							}
 						}
