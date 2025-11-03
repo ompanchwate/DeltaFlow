@@ -38,14 +38,12 @@
 									}
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
+									"type": "ParquetSink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
+										"type": "ParquetWriteSettings"
 									}
 								},
 								"enableStaging": false,
@@ -76,14 +74,8 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "csv_source_dataset",
-									"type": "DatasetReference",
-									"parameters": {
-										"container": {
-											"value": "@item().targetPath",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "csv_sink_dataset",
+									"type": "DatasetReference"
 								}
 							]
 						},
