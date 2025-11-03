@@ -1,0 +1,9 @@
+{
+	"name": "om-df",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ade1f89c-5d38-4327-80ab-e0ff808812da",
+		"tenantId": "c853abc0-64a4-447b-99f7-564ea0b8e378"
+	}
+}
