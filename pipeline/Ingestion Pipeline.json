@@ -206,6 +206,25 @@
 								},
 								"enableStaging": false
 							}
+						},
+						{
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "child_copy_activity",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": false,
+								"parameters": {
+									"datasets": "[\n  {\n    \"datasetName\": \"CSV_Dataset\",\n    \"datasetType\": \"csv\",\n    \"filePath\": \"input/csv/file1.csv\",\n    \"targetPath\": \"output/csv/file1.csv\",\n    \"expectedColumnCount\": 5\n  },\n  {\n    \"datasetName\": \"JSON_Dataset\",\n    \"datasetType\": \"json\",\n    \"filePath\": \"input/json/file2.json\",\n    \"targetPath\": \"output/json/file2.json\",\n    \"expectedSizeKB\": 120\n  }\n]\n"
+								}
+							}
 						}
 					]
 				}
