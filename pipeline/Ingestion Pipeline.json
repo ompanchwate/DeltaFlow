@@ -10,11 +10,7 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "csv_source_dataset",
-						"type": "DatasetReference",
-						"parameters": {
-							"container": "source",
-							"file": "csv_EV.csv"
-						}
+						"type": "DatasetReference"
 					},
 					"timeout": "0.00:05:30",
 					"sleep": 10
@@ -42,11 +38,7 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "csv_source_dataset",
-						"type": "DatasetReference",
-						"parameters": {
-							"container": "source",
-							"file": "csv_EV.csv"
-						}
+						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"columnCount",
@@ -130,37 +122,19 @@
 					],
 					"ifTrueActivities": [
 						{
-							"name": "Source_To_Bronze",
-							"type": "Copy",
-							"state": "Inactive",
-							"onInactiveMarkAs": "Succeeded",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.07:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"enableStaging": false
-							}
-						},
-						{
 							"name": "send_copy_success_msg",
 							"type": "WebActivity",
 							"state": "Inactive",
 							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
-									"activity": "Source_To_Bronze",
+									"activity": "Source_To_Bronze_copy1",
 									"dependencyConditions": [
 										"Succeeded"
 									]
 								},
 								{
-									"activity": "Source_To_Bronze_copy1",
+									"activity": "Source_To_Bronze_copy1_copy1",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -186,8 +160,64 @@
 						{
 							"name": "Source_To_Bronze_copy1",
 							"type": "Copy",
-							"state": "Inactive",
-							"onInactiveMarkAs": "Succeeded",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.07:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "csv_source_dataset",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "csv_sink_dataset",
+									"type": "DatasetReference"
+								}
+							]
+						},
+						{
+							"name": "Source_To_Bronze_copy1_copy1",
+							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.07:00:00",
@@ -209,30 +239,29 @@
 										"type": "JsonReadSettings"
 									}
 								},
-								"enableStaging": false
-							}
-						},
-						{
-							"name": "Execute Pipeline1",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"policy": {
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "child_copy_activity",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": false,
-								"parameters": {
-									"datasets": {
-										"value": "[\n  {\n    \"datasetName\": \"csv_source_dataset\",\n    \"datasetType\": \"csv\",\n    \"container\": \"source\",\n    \"fileName\": \"csv_EV.csv\",\n    \"targetPath\": \"raw\"\n  },\n  {\n    \"datasetName\": \"json_source_dataset\",\n    \"datasetType\": \"json\",\n    \"container\": \"source\",\n    \"fileName\": \"json_EV.json\",\n    \"targetPath\": \"raw\"\n  }\n]\n",
-										"type": "Expression"
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings"
 									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "json_source_dataset",
+									"type": "DatasetReference"
 								}
-							}
+							],
+							"outputs": [
+								{
+									"referenceName": "json_sink_dataset",
+									"type": "DatasetReference"
+								}
+							]
 						}
 					]
 				}
