@@ -10,7 +10,11 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "csv_source_dataset",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "source",
+							"file": "csv_EV.csv"
+						}
 					},
 					"timeout": "0.00:05:30",
 					"sleep": 10
@@ -38,7 +42,11 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "csv_source_dataset",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "source",
+							"file": "csv_EV.csv"
+						}
 					},
 					"fieldList": [
 						"columnCount",
@@ -220,7 +228,7 @@
 								"waitOnCompletion": false,
 								"parameters": {
 									"datasets": {
-										"value": "[\n  {\n    \"datasetName\": \"csv_source_dataset\",\n    \"datasetType\": \"csv\",\n    \"container\": \"source\",\n    \"fileName\": \"data1.csv\",\n    \"targetPath\": \"raw\"\n  },\n  {\n    \"datasetName\": \"json_source_dataset\",\n    \"datasetType\": \"json\",\n    \"container\": \"source\",\n    \"fileName\": \"data2.json\",\n    \"targetPath\": \"raw\"\n  }\n]\n",
+										"value": "[\n  {\n    \"datasetName\": \"csv_source_dataset\",\n    \"datasetType\": \"csv\",\n    \"container\": \"source\",\n    \"fileName\": \"csv_EV.csv\",\n    \"targetPath\": \"raw\"\n  },\n  {\n    \"datasetName\": \"json_source_dataset\",\n    \"datasetType\": \"json\",\n    \"container\": \"source\",\n    \"fileName\": \"json_EV.json\",\n    \"targetPath\": \"raw\"\n  }\n]\n",
 										"type": "Expression"
 									}
 								}
