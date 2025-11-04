@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "csv_EV",
+				"fileName": "ecommerce_csv_dataset.csv",
 				"fileSystem": "source"
 			},
 			"columnDelimiter": ",",

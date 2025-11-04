@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "json_EV",
+				"fileName": "ecommerce_json_dataset.json",
 				"fileSystem": "source"
 			}
 		},
