@@ -29,7 +29,7 @@
 		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
-			"defaultValue": "/subscriptions/9ecede26-932c-46a9-89d6-cf3ca23c4a58/resourceGroups/om-rg/providers/Microsoft.Storage/storageAccounts/srcblob1110"
+			"defaultValue": "/subscriptions/9ecede26-932c-46a9-89d6-cf3ca23c4a58/resourceGroups/om-rg/providers/Microsoft.Storage/storageAccounts/blobsrc"
 		}
 	},
 	"variables": {
