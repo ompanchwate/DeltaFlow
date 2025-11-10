@@ -2,16 +2,16 @@
 	"name": "json_source_dataset",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "bronze_datalake",
+			"referenceName": "AzureBlobStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
+				"type": "AzureBlobStorageLocation",
 				"fileName": "ecommerce_json_dataset.json",
-				"fileSystem": "source"
+				"container": "source"
 			}
 		},
 		"schema": {}

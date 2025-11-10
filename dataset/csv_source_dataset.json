@@ -2,16 +2,16 @@
 	"name": "csv_source_dataset",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "bronze_datalake",
+			"referenceName": "AzureBlobStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
+				"type": "AzureBlobStorageLocation",
 				"fileName": "ecommerce_csv_dataset.csv",
-				"fileSystem": "source"
+				"container": "source"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
