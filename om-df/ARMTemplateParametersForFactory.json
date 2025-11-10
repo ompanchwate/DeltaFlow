@@ -5,17 +5,17 @@
 		"factoryName": {
 			"value": "om-df"
 		},
-		"bronze_datalake_accountKey": {
+		"AzureBlobStorage_connectionString": {
 			"value": ""
 		},
-		"AzureBlobStorage_connectionString": {
+		"bronze_datalake_accountKey": {
 			"value": ""
 		},
 		"bronze_datalake_properties_typeProperties_url": {
 			"value": "https://ombronzedatalake.dfs.core.windows.net/"
 		},
 		"ingestion_trigger_properties_typeProperties_scope": {
-			"value": "/subscriptions/9ecede26-932c-46a9-89d6-cf3ca23c4a58/resourceGroups/capstone1-rg/providers/Microsoft.Storage/storageAccounts/capstone1bronzelake"
+			"value": "/subscriptions/9ecede26-932c-46a9-89d6-cf3ca23c4a58/resourceGroups/om-rg/providers/Microsoft.Storage/storageAccounts/srcblob1110"
 		}
 	}
 }
