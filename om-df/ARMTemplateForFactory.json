@@ -22,6 +22,10 @@
 		"ingestion_trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/9ecede26-932c-46a9-89d6-cf3ca23c4a58/resourceGroups/om-rg/providers/Microsoft.Storage/storageAccounts/srcblob1110"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/9ecede26-932c-46a9-89d6-cf3ca23c4a58/resourceGroups/om-rg/providers/Microsoft.Storage/storageAccounts/srcblob1110"
 		}
 	},
 	"variables": {
@@ -587,6 +591,26 @@
 				"description": "when new file is added",
 				"annotations": [],
 				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/source/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('ingestion_trigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -600,7 +624,7 @@
 				"typeProperties": {
 					"blobPathBeginsWith": "/source/blobs/",
 					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('ingestion_trigger_properties_typeProperties_scope')]",
+					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
 					]
