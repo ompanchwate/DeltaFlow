@@ -5,20 +5,11 @@
 		"factoryName": {
 			"value": "om-df"
 		},
-		"AzureSqlDatabase1_password": {
-			"value": ""
-		},
 		"bronze_datalake_accountKey": {
 			"value": ""
 		},
-		"AzureSqlDatabase1_properties_typeProperties_server": {
-			"value": "om-db-sever.database.windows.net"
-		},
-		"AzureSqlDatabase1_properties_typeProperties_database": {
-			"value": "om-database"
-		},
-		"AzureSqlDatabase1_properties_typeProperties_userName": {
-			"value": "omadmin"
+		"AzureBlobStorage_connectionString": {
+			"value": ""
 		},
 		"bronze_datalake_properties_typeProperties_url": {
 			"value": "https://ombronzedatalake.dfs.core.windows.net/"
