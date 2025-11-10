@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
 		},
+		"blob_json_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'blob_json'"
+		},
 		"bronze_datalake_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'bronze_datalake'"
@@ -56,6 +60,9 @@
 					},
 					"AzureBlobStorage_connectionString": {
 						"value": "[parameters('AzureBlobStorage_connectionString')]"
+					},
+					"blob_json_connectionString": {
+						"value": "[parameters('blob_json_connectionString')]"
 					},
 					"bronze_datalake_accountKey": {
 						"value": "[parameters('bronze_datalake_accountKey')]"

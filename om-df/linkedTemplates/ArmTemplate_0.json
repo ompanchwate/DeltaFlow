@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
 		},
+		"blob_json_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'blob_json'"
+		},
 		"bronze_datalake_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'bronze_datalake'"
@@ -41,6 +45,19 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureBlobStorage_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/blob_json')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('blob_json_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -149,7 +166,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage",
+					"referenceName": "blob_json",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -164,7 +181,7 @@
 				"schema": {}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage')]"
+				"[concat(variables('factoryId'), '/linkedServices/blob_json')]"
 			]
 		},
 		{

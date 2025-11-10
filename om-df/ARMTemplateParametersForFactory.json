@@ -8,6 +8,9 @@
 		"AzureBlobStorage_connectionString": {
 			"value": ""
 		},
+		"blob_json_connectionString": {
+			"value": ""
+		},
 		"bronze_datalake_accountKey": {
 			"value": ""
 		},
