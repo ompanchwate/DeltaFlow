@@ -58,7 +58,7 @@
 						}
 					},
 					{
-						"name": "Get Metadata",
+						"name": "csv_Metadata",
 						"type": "GetMetadata",
 						"dependsOn": [
 							{
@@ -104,13 +104,13 @@
 						"type": "IfCondition",
 						"dependsOn": [
 							{
-								"activity": "Get Metadata",
+								"activity": "csv_Metadata",
 								"dependencyConditions": [
 									"Succeeded"
 								]
 							},
 							{
-								"activity": "Get Metadata_copy1",
+								"activity": "json_Metadata",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -119,7 +119,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@and(\n  greater(activity('Get Metadata').output.columnCount, 10),\n  greater(activity('Get Metadata_copy1').output.size, 2000)\n)\n",
+								"value": "@and(\n  greater(activity('csv_Metadata').output.columnCount, 10),\n  greater(activity('json_Metadata').output.size, 2000)\n)\n",
 								"type": "Expression"
 							},
 							"ifFalseActivities": [
@@ -157,7 +157,7 @@
 										"headers": {},
 										"url": "https://prod-88.eastus.logic.azure.com:443/workflows/8b821113e3634182bf3f29544a569edb/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=PyRaHMRy6A0jsQwboJQ5nMj2uBMJGMwb99bWA-MEv2o",
 										"body": {
-											"value": "@json(concat('{',\n  '\"subject\":\"ADF Pipeline Failed!\",',\n  '\"body\":\"Pipeline: ', pipeline().Pipeline, '<br>',\n  'Column Count: Expected 30 but got ', string(activity('Get Metadata').output.columnCount), '\"',\n'}'))\n",
+											"value": "@json(concat('{',\n  '\"subject\":\"ADF Pipeline Failed!\",',\n  '\"body\":\"Pipeline: ', pipeline().Pipeline, '<br>',\n  'Column Count: Expected 30 but got ', string(activity('csv_Metadata').output.columnCount), '\"',\n'}'))\n",
 											"type": "Expression"
 										}
 									}
@@ -194,7 +194,7 @@
 										"headers": {},
 										"url": "https://prod-16.northcentralus.logic.azure.com:443/workflows/28c6361daf0044e7b7dfe75d61be57dc/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=ibLEYYe07Z5scLnxXZsaNHiIquiYxY5mqUUg3LLfC50",
 										"body": {
-											"value": "@json(concat(\n  '{',\n    '\"subject\":\"ADF Pipeline Execution Completed Successfully\",',\n    '\"body\":\"',\n      'The ADF pipeline execution has completed successfully with the following details:<br>',\n      'Pipeline Name: ', pipeline().Pipeline, '<br>',\n      'Copy Activity: ', activity('csv_source_to_sink').ActivityType, '<br>',\n      'Status: ', activity('json_source_to_sink').Status, '<br>',\n      'CSV Source File Name: ', activity('Get Metadata').output.itemName, '<br>',\n      'Json Source File Name: ', activity('Get Metadata_copy1').output.itemName, '<br>',\n      'Destination: Bronze Data Lake<br>',\n      'Column Count: ', string(activity('Get Metadata').output.columnCount), '<br>',\n      'File Size (Bytes): ', string(activity('Get Metadata').output.size), '<br>',\n      'Data Read (Bytes): ', string(activity('csv_source_to_sink').output.dataRead), '<br>',\n      'Data Written (Bytes): ', string(activity('json_source_to_sink').output.dataWritten),\n    '\"',\n  '}'\n))\n",
+											"value": "@json(concat(\n  '{',\n    '\"subject\":\"ADF Pipeline Execution Completed Successfully\",',\n    '\"body\":\"',\n      'The ADF pipeline execution has completed successfully with the following details:<br>',\n      'Pipeline Name: ', pipeline().Pipeline, '<br>',\n      'Copy Activity: ', activity('csv_source_to_sink').ActivityType, '<br>',\n      'Status: ', activity('json_source_to_sink').Status, '<br>',\n      'CSV Source File Name: ', activity('csv_Metadata').output.itemName, '<br>',\n      'Json Source File Name: ', activity('json_Metadata').output.itemName, '<br>',\n      'Destination: Bronze Data Lake<br>',\n      'Column Count: ', string(activity('csv_Metadata').output.columnCount), '<br>',\n      'File Size (Bytes): ', string(activity('csv_Metadata').output.size), '<br>',\n      'Data Read (Bytes): ', string(activity('csv_source_to_sink').output.dataRead), '<br>',\n      'Data Written (Bytes): ', string(activity('json_source_to_sink').output.dataWritten),\n    '\"',\n  '}'\n))\n",
 											"type": "Expression"
 										}
 									}
@@ -215,7 +215,7 @@
 										"source": {
 											"type": "DelimitedTextSource",
 											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
+												"type": "AzureBlobStorageReadSettings",
 												"recursive": true,
 												"enablePartitionDiscovery": false
 											},
@@ -332,7 +332,7 @@
 						}
 					},
 					{
-						"name": "send_source_not_found_msg",
+						"name": "csv_source_not_found",
 						"type": "WebActivity",
 						"dependsOn": [
 							{
@@ -376,7 +376,7 @@
 						}
 					},
 					{
-						"name": "Get Metadata_copy1",
+						"name": "json_Metadata",
 						"type": "GetMetadata",
 						"dependsOn": [
 							{
@@ -416,7 +416,7 @@
 						}
 					},
 					{
-						"name": "send_source_not_found_msg_copy1",
+						"name": "json_src_not_found",
 						"type": "WebActivity",
 						"dependsOn": [
 							{
