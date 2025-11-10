@@ -114,7 +114,7 @@
 								"method": "POST",
 								"url": "https://prod-88.eastus.logic.azure.com:443/workflows/8b821113e3634182bf3f29544a569edb/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=PyRaHMRy6A0jsQwboJQ5nMj2uBMJGMwb99bWA-MEv2o",
 								"body": {
-									"value": "@json(concat('{',\n  '\"subject\":\"ADF Pipeline Failed!\",',\n  '\"body\":\"Pipeline: ', pipeline().Pipeline, '<br>',\n  'Column Count: Expected 30 but got ', string(activity('Get Metadata').output.columnCount), '\"',\n'}'))\n",
+									"value": "@json(concat('{',\n  '\"subject\":\"ADF Pipeline Failed!\",',\n  '\"body\":\"Pipeline: ', pipeline().Pipeline, '<br>',\n  'Column Count: Expected 30 but got ', string(activity('csv_Metadata').output.columnCount), '\"',\n'}'))\n",
 									"type": "Expression"
 								}
 							}
