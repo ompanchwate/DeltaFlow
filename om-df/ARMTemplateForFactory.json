@@ -539,7 +539,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "blob_json",
+					"referenceName": "AzureBlobStorage",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -548,13 +548,13 @@
 					"location": {
 						"type": "AzureBlobStorageLocation",
 						"fileName": "ecommerce_json_dataset.json",
-						"container": "source"
+						"container": "jsonsource"
 					}
 				},
 				"schema": {}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blob_json')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage')]"
 			]
 		},
 		{
