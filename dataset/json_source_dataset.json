@@ -2,7 +2,7 @@
 	"name": "json_source_dataset",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "blob_json",
+			"referenceName": "AzureBlobStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "ecommerce_json_dataset.json",
-				"container": "source"
+				"container": "jsonsource"
 			}
 		},
 		"schema": {}
